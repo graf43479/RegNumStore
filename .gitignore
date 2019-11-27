@@ -1,0 +1,10 @@
+/.vs/*
+/Domain/bin
+/Domain/obj
+/RegNumStore/bin
+/RegNumStore/obj
+/RegNumStore/App_Data
+*.ico
+*.sql
+*.txt
+*.exe
