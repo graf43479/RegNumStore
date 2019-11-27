@@ -1,0 +1,65 @@
+﻿@model RegnumStore.Models.RegisterModel
+@{
+    ViewBag.Title = "Регистрация";
+    Layout = "~/Views/Shared/_LayoutExtended.cshtml";
+    ViewBag.Robots = "nofollow, noindex";   
+}
+
+
+<div class="page wrapper">
+         <div id="crumbs">
+        <ul class="exbreadcumb">
+            <li>@Html.ActionLink("Главная","Portfolio","Home")</li>
+            <li>@Html.ActionLink("Авторизация","Login","Account")</li>
+            <li class="active">@Html.ActionLink("Регистрация","Register","Account")</li>
+        </ul>
+    </div>
+    <div class="auth-form" style="" >
+        <section id="loginForm">
+            <h1>Создание новой учетной записи.</h1>
+            @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
+               @*  <fieldset style="pad">
+                    <legend>Форма регистрации</legend>*@
+
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(false)
+                <div class="accountLeft">
+                    @*<p> @Html.LabelFor(m => m.Login)</p>*@
+                    <p>@Html.TextBoxFor(m => m.Login, new {@placeholder = Html.DisplayNameFor(x=>x.Login)})</p>
+                    @*<p>@Html.ValidationMessageFor(m => m.Login)</p>*@
+                
+                
+                    @*<p>@Html.LabelFor(m => m.Password)</p>*@
+                    <p>@Html.PasswordFor(m => m.Password, new {@placeholder = Html.DisplayNameFor(x=>x.Password)})</p>
+                    @*<p>@Html.ValidationMessageFor(m => m.Password)</p>*@
+                
+                     
+                    @*<p>@Html.LabelFor(m => m.ConfirmPassword)</p>*@
+                    <p>@Html.PasswordFor(m => m.ConfirmPassword, new {@placeholder = Html.DisplayNameFor(x=>x.ConfirmPassword)})</p>
+                    @*<p>@Html.ValidationMessageFor(m => m.ConfirmPassword)</p>*@
+                </div>
+                <div class="accountRight">
+                    @*<p>@Html.LabelFor(m => m.Email)</p>*@
+                    <p>@Html.TextBoxFor(m => m.Email, new {@placeholder = Html.DisplayNameFor(x=>x.Email)})</p>
+                    @*<p>@Html.ValidationMessageFor(m => m.Email)</p>*@
+                      
+                    @*<p>@Html.LabelFor(m => m.Phone)</p>*@
+                    <p>@Html.TextBoxFor(m => m.Phone, new {@placeholder = Html.DisplayNameFor(x=>x.Phone)})</p>
+                    @*<p>@Html.ValidationMessageFor(m => m.Phone)</p>*@
+                    
+                    @*<p>@Html.LabelFor(m => m.Phone)</p>*@
+                    <p>@Html.TextBoxFor(m => m.UserName, new {@placeholder = Html.DisplayNameFor(x=>x.UserName)})</p>
+                    @*<p>@Html.ValidationMessageFor(m => m.Phone)</p>*@
+
+                    <p><input type="submit" value="Регистрация" /></p>
+                     
+                </div>
+                @*</fieldset>*@
+            }
+        </section>
+    </div>
+</div>
+<script type="text/javascript" src="@Url.Content("~/Scripts/js/jquery.maskedinput.min.js")"></script>
+<script>
+    $("#Phone").mask("9 (999) 999-99-99");
+</script>

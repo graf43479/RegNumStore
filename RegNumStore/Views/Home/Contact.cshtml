@@ -1,0 +1,49 @@
+﻿@using Domain.Entities
+@using RegNumStore.Models
+@model Domain.Entities.Message
+@{
+    Layout = "~/Views/Shared/_LayoutExtended.cshtml";
+    SimpleSeoViewModel attr = (SimpleSeoViewModel)ViewBag.SEO;
+    if (attr != null)
+    {
+        ViewBag.Title = attr.Tittle;
+        ViewBag.Robots = attr.Robots;
+        ViewBag.Keywords = attr.Keywords;
+        ViewBag.Snippet = attr.Snippet;
+    }
+}
+
+
+<div class="page wrapper">
+    <div id="crumbs">
+        <ul class="exbreadcumb">
+            <li>@Html.ActionLink("Главная","Portfolio","Home")</li>
+            <li class="active">@Html.ActionLink("Заказать","Contact","Home")</li>
+        </ul>
+    </div>
+    <h1>Заказать</h1>
+    <div class="clearfix">
+        <div class="contactLeft">
+            <h2>(926) 713-88-36</h2>
+            <p>adaoceanf1oto@gmail.com</p><br />
+            <p><a href="http://vk.com/adaocean">http://vk.com/adaocean</a></p>
+            <p>По всем имеющимся вопросам вы можете обратиться по указанному номеру.</p>
+            <p> Если Вы не обнаружили интересующего Вас номера в нашей базе - у Вас есть возможность оставить заявку.
+                Мы постараемся найти его специально для Вас в максимально быстро!
+            </p>
+            @*<p><a href="#"></a></p>
+            <p><a href="https://www.facebook.com/adaoceanfoto">https://www.facebook.com/adaoceanfoto</a></p>
+            <p><a href="https://twitter.com/AdaOcean">https://twitter.com/AdaOcean</a></p>
+            <p><a href="http://vimeo.com/user19682450">http://vimeo.com/user19682450 </a></p>      
+            <p><a href="http://adaocean.livejournal.com/">http://adaocean.livejournal.com/</a></p>    
+            <p><a href="http://instagram.com/adaocean">http://instagram.com/adaocean</a></p>      	*@
+        </div>
+        <div class="contactRight">
+            <div id="result">
+                @Html.Partial("ContactPartialView", Model)
+            </div>
+        </div>
+    </div>
+</div>
+
+ 

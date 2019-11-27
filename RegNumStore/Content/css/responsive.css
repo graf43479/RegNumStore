@@ -1,0 +1,136 @@
+@media (max-width:750px) {
+	.navigation-portfolio, .navigation {
+		display: none;
+	}
+	.button-menu {
+		display: block;
+	}
+   
+      .photo {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+  
+}
+@media (min-width: 450px) and (max-width:750px) {
+	.header .logo {
+		text-align: left;
+		padding-left: 15px;
+	}
+	.revs .rev, .revs-num .rev-num, .portfolio a {
+		width: 49%;
+	}
+
+        
+
+    .revs-n .rev-n {
+        width: 24.9%;
+    }
+
+      .photo {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+       
+
+}
+
+@media (min-width: 370px) and (max-width: 600px) {
+     .revs-n .rev-n {
+         width: 32%
+     }
+       .photo {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+@media (min-width: 350px) and (max-width: 450px) {
+	.revs .rev,.revs-n .rev-n {
+		width: 100%;
+	}
+    .revs-num .rev-num {
+		width: 100%;
+	}
+	.header .logo {
+		text-align: left;
+		padding-left: 10px;
+	}
+	.header .phone {
+		/*display: none;*/
+        display:block;
+	    background-color: whitesmoke;
+	   -moz-border-radius: 6px;
+        -webkit-border-radius: 6px;
+        border-radius: 6px;
+        
+
+	}
+	.revs .rev, .portfolio a {
+		width: 49%;
+	}
+
+    .revs-n .rev-n {
+        width: 47.5%;
+    }
+
+    .revs-num .rev-num, .portfolio a {
+		width: 49%;
+	}
+	.indexMenu {
+		text-align: center;
+	}
+	.contactLeft, .contactRight {
+		width: 100%;
+		float: none;
+		padding: 15px 30px 15px 15px;
+	}
+	.page-content img {
+		display: none;
+	}
+
+    .photo {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+@media (max-width: 349px) {
+	.revs .rev, .revs-n .rev-n, .revs-num .rev-num, .portfolio a {
+		width: 100%;
+	}
+	.header .phone {
+		/*display: none;*/
+        display:block;
+         background-color: whitesmoke;
+	   -moz-border-radius: 6px;
+        -webkit-border-radius: 6px;
+        border-radius: 6px;
+	}
+	.indexMenu {
+		text-align: center;
+	}
+	.header .logo {
+		text-align: left;
+		padding-left: 10px;
+	}
+	.contactLeft, .contactRight {
+		width: 100%;
+		float: none;
+		padding: 15px 30px 15px 15px;
+	}
+	.accountLeft, .accountRight {
+		width: 100%;
+		float: none;
+		padding: 0px 30px 0px 15px;
+	}
+	.page-content img {
+		display: none;
+	}
+
+    .photo {
+        padding-left: 35px;
+        padding-right: 35px;
+    }
+}

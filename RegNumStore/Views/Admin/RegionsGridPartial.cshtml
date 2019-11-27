@@ -1,0 +1,122 @@
+﻿@using Microsoft.Ajax.Utilities
+@using MvcContrib.UI.Grid
+@model RegnumStore.Models.PagedViewModel<Domain.Entities.Region>
+@*@model RegnumStore.Models.PagedViewModel<RegNumStore.Models.RegionViewModel>*@
+
+
+
+@{
+    Html.RenderPartial("Pager", Model.PagedList);
+}
+
+
+@Html.Grid(Model.PagedList).Columns(column =>
+        {
+            //column.For(x => Ajax.ActionLink(x.ArticleDate.ToShortDateString(), "CreateSeoAttributes", new { seoAttributesId = x.SeoAttributeID }, new AjaxOptions
+            //    {
+            //        UpdateTargetId = "newsDetails",
+            //        InsertionMode = InsertionMode.Replace,
+            //        HttpMethod = "GET",
+            //        OnBegin = "gifLoaderBefore",
+            //        OnSuccess = "gifLoaderAfter",
+            //        OnFailure = "gifLoaderAfter",
+            //        OnComplete = "gifLoaderAfter"
+            //    })).SortColumnName("ArticleDate").Sortable(true).Named("Дата");
+
+
+            column.For(x => Ajax.ActionLink(x.RegionID.ToString(), "CreateRegion", new { regionId = x.RegionID }, new AjaxOptions
+            {
+                UpdateTargetId = "newsDetails",
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "GET",
+                OnBegin = "gifLoaderBefore",
+                OnSuccess = "gifLoaderAfter",
+                OnFailure = "gifLoaderAfter",
+                OnComplete = "gifLoaderAfter"
+            })).SortColumnName("RegionID").Sortable(true).Named("ID").Attributes(x =>
+            {
+                return new
+                    Dictionary<string, object> { { "style", "word-break: normal; text-align: center;" } };
+            });
+
+
+            column.For(x => Ajax.ActionLink(String.IsNullOrEmpty(x.RegionNumber) ? "Нет данных" : x.RegionNumber, "CreateRegion", new { regionId = x.RegionID }, new AjaxOptions
+            {
+                UpdateTargetId = "newsDetails",
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "GET",
+                OnBegin = "gifLoaderBefore",
+                OnSuccess = "gifLoaderAfter",
+                OnFailure = "gifLoaderAfter",
+                OnComplete = "gifLoaderAfter"
+            })).SortColumnName("RegionNumber").Sortable(true).Named("Номер").Attributes(x =>
+            {
+                return new
+                    Dictionary<string, object> { { "style", "word-break: normal; text-align: center;" } };
+            });
+
+
+            column.For(x => Ajax.ActionLink(String.IsNullOrEmpty(x.RegionName) ? "Нет данных" : x.RegionName, "CreateRegion", new { regionId = x.RegionID }, new AjaxOptions
+            {
+                UpdateTargetId = "newsDetails",
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "GET",
+                OnBegin = "gifLoaderBefore",
+                OnSuccess = "gifLoaderAfter",
+                OnFailure = "gifLoaderAfter",
+                OnComplete = "gifLoaderAfter"
+            })).SortColumnName("RegionName").Sortable(true).Named("Регион").Attributes(x =>
+            {
+                return new
+                    Dictionary<string, object> { { "style", "word-break: normal; text-align: center;" } };
+            });
+
+
+            column.For(x => Ajax.ActionLink(String.IsNullOrEmpty(x.Sequence.ToString()) ? " - " : x.Sequence.ToString(), "CreateRegion", new { regionId = x.RegionID }, new AjaxOptions
+            {
+                UpdateTargetId = "newsDetails",
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "GET",
+                OnBegin = "gifLoaderBefore",
+                OnSuccess = "gifLoaderAfter",
+                OnFailure = "gifLoaderAfter",
+                OnComplete = "gifLoaderAfter"
+            })).SortColumnName("Sequence").Sortable(true).Named("Приоритет").Attributes(x =>
+            {
+                return new
+                    Dictionary<string, object> { { "style", "word-break: normal; text-align: center;" } };
+            });
+
+            column.For(x => Ajax.ActionLink((String.IsNullOrEmpty(x.RegionType.RegionTypeDesc)) ? "Нет описания" : x.RegionType.RegionTypeDesc, "CreateRegion", new { regionId = x.RegionID }, new AjaxOptions
+            {
+                UpdateTargetId = "newsDetails",
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "GET",
+                OnBegin = "gifLoaderBefore",
+                OnSuccess = "gifLoaderAfter",
+                OnFailure = "gifLoaderAfter",
+                OnComplete = "gifLoaderAfter"
+            })).SortColumnName("RegionTypeID").Sortable(true).Named("Тип региона").Attributes(x =>
+            {
+                return new
+                    Dictionary<string, object> { { "style", "word-break: normal; text-align: center;" } };
+            });
+
+            //column.For(x => Ajax.ActionLink(x.TagID, "CreateSeoAttributes", new { seoAttributesId = x.TagID }, new AjaxOptions
+            //{
+            //    UpdateTargetId = "newsDetails",
+            //    InsertionMode = InsertionMode.Replace,
+            //    HttpMethod = "GET",
+            //    OnBegin = "gifLoaderBefore",
+            //    OnSuccess = "gifLoaderAfter",
+            //    OnFailure = "gifLoaderAfter",
+            //    OnComplete = "gifLoaderAfter"
+            //})).SortColumnName("TagID").Sortable(true).Named("TagID").Attributes(x =>
+            //{
+            //    return new
+            //        Dictionary<string, object> { { "style", "word-break: normal; text-align: left;" } };
+            //});
+
+        
+
+        }).Sort(Model.GridSortOptions).Attributes(@class => "table table-striped table-bordered table-hover table-condensed grid-style").Empty("Нет данных")

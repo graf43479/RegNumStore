@@ -1,0 +1,153 @@
+﻿@using Domain.Entities
+@model IEnumerable<Domain.Entities.Product>
+
+@{
+    ViewBag.Title = "Личный кабинет";
+    Layout = "~/Views/Shared/_LayoutExtended.cshtml";
+    ViewBag.Robots = "nofollow, noindex";
+
+    User user = ViewBag.User;
+}
+
+<div class="page wrapper">
+      <div id="crumbs">
+        <ul class="exbreadcumb">
+            <li>@Html.ActionLink("Главная","Portfolio","Home")</li>
+            <li class="active">@Html.ActionLink("Личный кабинет","UserInfo","Account")</li>
+        </ul>
+    </div>
+    
+
+    <h1>Личный кабинет</h1>
+    <div class="navigation-portfolio">
+        <ul>
+            <li>@Html.ActionLink("Добавить номер","EditRegNum","Account", null, new {@class = "action-btn"})</li>
+            <li>@Html.ActionLink("Изменить учетную запись","UserAccountChange","Account", null, new {@class = "action-btn"})</li>
+            <li>@Html.ActionLink("Выйти","LogOff", null, new {@class = "action-btn"})</li>
+        
+        </ul>
+    </div>
+    <div>
+        <p><b>Учетная запись:</b></p>
+        <p>Имя: <b>@user.UserName</b></p>
+        <p>Логин: <b>@user.Login</b></p>
+        <p>Телефон: <b>@user.Phone</b></p>
+        <p>Дата регистрации: <b>@user.Created.ToShortDateString()</b></p>
+
+    </div>
+    
+
+@*    <div class="revs clearfix" id="revs-num">
+
+        @if (Model.Any())
+        {
+            foreach (var product in Model)
+            {
+                <div class="rev-num" style="clear: left; border: 1px solid #f1f1f1; ">
+                    <div class="rev-num photo" style="">
+                        <div>
+                            <p>
+                                @{if (System.IO.File.Exists(System.IO.Path.Combine(Server.MapPath(Url.Content("~/Content")), "img", product.ProductID + ".jpg")))
+                                  {
+                                      <img src="@Url.Content("~/Content/img/"+@product.ProductID + ".jpg")" alt="Ada Ocean" width="280" height="421" />
+                                  }
+                                  else
+                                  {
+                                      <img src="@Url.Content("~/Content/images/template.jpg")" alt="Ada Ocean" width="280" height="421" />
+                                  }
+                                }
+                            </p>		
+                        </div>
+                    </div>
+            
+                    <div class="rev-num">
+                        <div>
+                            <p class="nameRev">Продажа</p>
+                        </div>
+                    </div>   
+            
+                    <div class="rev-num">
+                        <div>
+                            <p class="nameRev">@product.ProductNumber</p>
+                        </div>
+                    </div>
+                    <div class="rev-num">
+                        <div>
+                            <p class="nameRev">@Html.ActionLink("Правка", "UpdateRegNum", new { productId = @product.ProductID })/@Html.ActionLink("Удалить", "DeleteRegNum", new {productId = @product.ProductID}, new {onclick = "return confirm('Нажимая - Да - Вы подтверждаете удаление номера из базы! Вы уверены?');"})</p>
+                        </div>
+                    </div>
+                    <div class="rev-num">
+                        <div>
+                            <p class="nameRev">@product.Price</p>
+                        </div>
+                    </div>
+                    <div class="rev-num">
+                        <div>
+                            <p class="nameRev">@product.StartDate.ToShortDateString()</p>
+                        </div>
+                    </div>
+                </div>
+            }
+    
+        }
+    </div>*@
+    
+    
+    
+    
+     <div class="revs-n clearfix" id="revs-n" @*id="revs-num"*@ >
+    
+@foreach (var product in Model)
+{
+    <div class="rev-n">
+        <div>
+            <p class="photo">
+                @{if (System.IO.File.Exists(System.IO.Path.Combine(Server.MapPath(Url.Content("~/Content")), "img", product.ProductID + ".jpg")))
+                {
+                    <a href="@Url.Action("NumInfo","Home", new {productId = @product.ProductID})"><img src="@Url.Content("~/Content/img/"+@product.ProductID + ".jpg")" alt="Красивые номера на авто: @product.ProductNumber" width="280" height="421" /></a>
+                }
+                else
+                {
+                    <a href="@Url.Action("NumInfo","Home", new {productId = @product.ProductID})"><img src="@Url.Content("~/Content/images/template.jpg")" alt="Ada Ocean" width="280" height="421" /></a>
+                }
+                }
+            </p>
+            
+            <p class="nameRev">Продажа</p>
+            @*<p class="nameRev">@product.Price.ToString("C")</p>*@
+            <p class="nameRev">@string.Format("{0:0,##}", product.Price) р.</p>
+             <p class="nameRev">@Html.ActionLink("Правка", "UpdateRegNum", new { productId = @product.ProductID })/@Html.ActionLink("Удалить", "DeleteRegNum", new {productId = @product.ProductID}, new {onclick = "return confirm('Нажимая - Да - Вы подтверждаете удаление номера из базы! Вы уверены?');"})</p>
+            <p class="nameRev">@product.StartDate.ToShortDateString()</p>
+            
+            @*<p class="nameRev">
+                @foreach (Category p in product.Categories)
+                {
+                    <b>@p.CategoryName</b>
+                }
+            </p>
+            <p>Test text</p>*@
+        </div>
+    </div>
+}  
+
+
+</div></div>
+
+
+            <script>
+                $('#revs-num').freetile({
+                    animate: true,
+                    elementDelay: 30,
+                    selector: '.portfolio-modal, .rev-num'
+                });
+            </script>
+
+            
+<script>
+    $('#revs-n').freetile({
+        animate: true,
+        elementDelay: 30,
+        selector: '.portfolio-modal, .rev-n'
+    });
+
+</script>

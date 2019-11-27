@@ -1,0 +1,58 @@
+﻿@{
+    Layout = null;
+    var p = (string) TempData["nav-message"];
+    //RouteData rd = new RouteData();
+    //ViewBag.Action = rd.GetRequiredString("action");
+    
+}
+@functions
+{
+public string Current(string part)
+    {
+        return (part == (string)TempData["nav-message"]) ? "active" : "";
+    }
+    }
+<ul>
+
+    <li class="@Current("Portfolio")">@Html.ActionLink("База номеров", "Portfolio", "Home")</li>
+    @{
+        if ((string)TempData["mobile"] == "mobile")
+        {
+            if (p == "Portfolio")
+            {
+
+                Html.RenderAction("PortfolioMenu", "Nav");
+
+            }
+
+
+        }
+    }
+    @*<li class="@Current("Price")">@Html.ActionLink("Цены", "Price", "Home", null, new {rel="follow, index"})</li>*@
+    @*<li class="@Current("Calendar")">@Html.ActionLink("Календарь", "Calendar", "Home", null,new {rel="nofollow, noindex"})</li>*@
+    @*<li class="@Current("Contact")">@Html.ActionLink("Контакты", "Contact", "Home", null,new {rel="follow, index"})</li>*@
+    @*<li class="@Current("Comments")">@Html.ActionLink("Продать", "Comments", "Home", null,new {rel="nofollow, noindex"})</li>*@
+    <li class="@Current("Contact")">@Html.ActionLink("Контакты", "Contact", "Home", null, new { rel = "follow, index" })</li>
+    <li class="@Current("QuickSale")">@Html.ActionLink("Срочная продажа", "QuickSale", "Home", null, new {rel = "nofollow, noindex"})</li>
+    <li class="@Current("Order")">@Html.ActionLink("Под заказ", "Order", "Home", null, new { rel = "nofollow, noindex" })</li>
+    <li class="@Current("About")">@Html.ActionLink("О нас", "About", "Home", null, new { rel = "follow, index" })</li>
+    <li class="@Current("Comments")">@Html.ActionLink("Вопрос/ответ", "Comments", "Home", null, new { rel = "follow, index" })</li>
+
+    @if (HttpContext.Current.User.Identity.IsAuthenticated)
+    {
+        <li class="@Current("UserInfo")">@Html.ActionLink("Личный кабинет", "UserInfo", "Account", null, new { rel = "nofollow, noindex" })</li>
+        <li class="@Current("Exit")">@Html.ActionLink("Выйти", "LogOff", "Account", null, new { rel = "nofollow, noindex" })</li>
+    }
+    @if (HttpContext.Current.User.Identity.IsAuthenticated != true)
+    {
+        <li class="@Current("Login")">@Html.ActionLink("Войти", "Login", "Account", null, new { rel = "nofollow, noindex" })</li>
+        <li class="@Current("Registrate")">@Html.ActionLink("Регистрация", "Register", "Account", null, new { rel = "nofollow, noindex" })</li>
+    }
+
+
+    @if (HttpContext.Current.User.IsInRole("admin"))
+    {
+        <li class="">@Html.ActionLink("Админка", "Categories", "Admin")</li>
+    }
+
+</ul>		

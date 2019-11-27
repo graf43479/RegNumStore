@@ -1,0 +1,63 @@
+﻿@model RegnumStore.Models.LoginModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutExtended.cshtml";
+    ViewBag.Title = "Авторизация";
+    ViewBag.Robots = "nofollow, noindex";   
+}
+
+@{
+    if (Session["attempt"] == null)
+    {
+        Session["attempt"] = 0;
+    }
+    
+}
+   
+
+<div class="page wrapper">
+    <div id="crumbs">
+        <ul class="exbreadcumb">
+            <li>@Html.ActionLink("Главная","Portfolio","Home")</li>
+            <li class="active">@Html.ActionLink("Авторизация","Login","Account")</li>
+        </ul>
+    </div>
+
+    <div class="auth-form">
+        <section id="loginForm">
+            <h1>Авторизация</h1>
+            @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(false)
+                <div class="accountLeft">
+                    <p>@Html.TextBoxFor(m => m.UserName, new {@placeholder = Html.DisplayNameFor(x=>x.UserName)})</p>
+                    <p>@Html.PasswordFor(m => m.Password, new {@placeholder = Html.DisplayNameFor(x=>x.Password)})</p>
+                    <p>@Html.CheckBoxFor(m => m.RememberMe) @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })</p>
+                    @if ((int)Session["attempt"] > 3)
+                    {
+                        <p>@Html.LabelFor(m => m.Captcha)</p>
+                        <p><a href="@Url.Action("Login")"><img alt="Capcha" src="@Url.Action("CaptchaImage")" style=""/></a></p>
+                        <p>@Html.TextBoxFor(m => m.Captcha, new {@placeholder = "Ответ"})</p>
+                    }
+                    <p><input type="submit" value="Войти" /></p>
+                </div>
+            }
+        </section>
+        <div class = "login-submenu accountRight">
+            @if(User.Identity.Name != "")
+            {
+                <p>Имя пользователя: @User.Identity.Name</p>
+                <p>@Html.ActionLink("Выйти", "LogOff", null, new {@class="action-btn"})</p>
+                <p>@Html.ActionLink("Изменить пароль", "ChangePassword", null, new {@class="action-btn1"})</p>
+                <p>@Html.ActionLink("Изменить данные учетной записи", "UserAccountChange", null, new {@class="action-btn1"})</p>
+            }
+            else
+            {
+                <p>@Html.ActionLink("Зарегистрируйтесь", "Register", null, new {@class="action-btn1"}), если у вас нет учетной записи. @Html.ActionLink("Забыли пароль?", "ForgottenPassword", null, new {@class="action-btn1"})</p>
+            }
+        </div>
+    </div>
+</div>
+
+
+

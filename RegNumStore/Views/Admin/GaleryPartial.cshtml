@@ -1,0 +1,158 @@
+﻿@model IEnumerable<string>
+
+
+
+
+
+<div style="padding: 0" id="newsDetails">
+    @foreach (string file in Model)
+    {
+        string name = file.Substring(0, file.LastIndexOf('.'));
+    @*@Html.ActionLink(file, "Download", new {Action = "Download", fn = file})*@
+        <div class="col-lg-2 col-md-2 galery-item" style="padding-top: 10px;">
+            <div  style="height: 170px">
+                <a class="example-image-link" 
+                   style=""
+                   href="@(Url.Content("~/Content"))/@(Domain.Constants.GALERY_IMAGES_FOLDER)/@file" data-lightbox="example-set" title="@file">
+                    <img class="img-thumbnail galery-image"  
+                               src="@(Url.Content("~/Content"))/@(Domain.Constants.GALERY_IMAGES_FOLDER)/@file" 
+                               alt="@Model"
+                               style=""/>
+                </a>
+            </div>
+            <p style="text-wrap: normal; word-wrap: break-word" class="galery-file-name">@file
+                @*    <span class="fa fa-2x fa-edit file-name-editor-btn"></span>*@
+            <a href="" class="glyphicon glyphicon-pencil file-name-editor-btn" style="visibility: hidden; float: right; color: #8EB50C;">
+                @* <span class="fa fa-2x fa-edit file-name-editor-btn" style="visibility: hidden; float: right;"></span>*@
+            </a>
+            <a href="" class="glyphicon glyphicon-copyright-mark file-name-path-btn" style="visibility: hidden; float: right; color: #8EB50C;"></a>
+                
+                @Html.Raw(@Ajax.ActionLink(" ","DeleteGaleryImage", new { filename = @file}, new AjaxOptions
+                    {
+                    UpdateTargetId = "newsDetails",
+                    InsertionMode = InsertionMode.Replace,
+                    HttpMethod = "GET",
+                    OnBegin = "gifLoaderBefore",
+                    OnSuccess = "gifLoaderAfter",
+                    OnFailure = "gifLoaderAfter",
+                    OnComplete = "gifLoaderAfter",
+                    Confirm = "Удалить изображение " + @file
+                    }, new { @style = "visibility: hidden; float: right; color: #8EB50C;", @class = "glyphicon glyphicon-remove galery-filename-delete" })
+                    )
+            @*  <a href="@Url.Action("DeleteGaleryImage", new { filename = @file })" class="galery-filename-delete">
+                    <span class="fa fa-2x fa-times" style="visibility: hidden; float: right"></span>
+                </a></p>*@
+                
+                
+                @using (Ajax.BeginForm("GaleryRenameImage","Admin", new AjaxOptions
+                    {
+                        UpdateTargetId = "newsDetails",
+                    InsertionMode = InsertionMode.Replace,
+                    HttpMethod = "POST",
+                    OnBegin = "gifLoaderBefore",
+                    OnSuccess = "gifLoaderAfter",
+                    OnFailure = "gifLoaderAfter",
+                    OnComplete = "gifLoaderAfter",
+                    //Confirm = "Удалить изображение " + @file
+                    },new {@class="galery-filename-form"}))
+                    {
+                        <div class="btn-groups galery-filename-editor" style="padding: 0; visibility: hidden">
+                            <input type="hidden" value="@file" name="oldfilename" class=""/>
+                            <div class="col-lg-10" style="padding: 0">
+                                <input type="text" value="@name" name="newfilename" class="form-control"/>
+                            </div>
+                            <div class="col-lg-2" style="padding: 0">
+                                <input type="submit" value="OK" class="btn"/>
+                            </div>
+                        </div>
+                    }
+                
+                
+                
+                @*
+            @using (Html.BeginForm("GaleryRenameImage","Admin", FormMethod.Post, new {@class="galery-filename-form"}))
+            {
+                <div class="btn-groups galery-filename-editor" style="padding: 0; visibility: hidden">
+                    <input type="hidden" value="@file" name="oldfilename" class=""/>
+                    <div class="col-lg-10" style="padding: 0">
+                        <input type="text" value="@name" name="newfilename" class="form-control"/>
+                    </div>
+                    <div class="col-lg-2" style="padding: 0">
+                        <input type="submit" value="OK" class="btn"/>
+                    </div>
+                    
+
+                </div>
+                
+            }*@
+            
+            
+        </div>
+    
+    @*<p>@file</p>*@
+    }
+    
+</div>
+
+
+
+<script>
+    //.galery-edit-filename
+    /*$(".galery-file-name").hover(function () {
+        //$(this).fadeOut(100);
+        //$(this).fadeIn(500);
+        //$("span.galery-filename-edit").Style("visibility","visible");
+        //(".galery-edit-filename").Css("visibility", "visible"); 
+         $(this).find("span").css('visibility', 'visible');
+        $(this).find("a").css('visibility', 'visible');
+    })*/
+
+    $(".galery-item").hover(function() {
+        $(this).find("span").css('visibility', 'visible');
+        $(this).find("a").css('visibility', 'visible');
+    });
+
+    $(".file-name-path-btn").click(function() {
+        //$(this).find("img").css('visibility', 'hidden');
+        var txt = $(this).parent().prev().find("img").attr('src');
+        txt = window.location.host + txt;
+        alert('Ссылка на изображение: ' + txt);
+        //$(this).find("a").css('visibility', 'visible');
+    });
+
+
+    @*
+    $(".galery-image").zclip({
+        //$(this).find("span").css('visibility', 'visible');
+        //$(this).find("a").css('visibility', 'visible');
+        path: 'ZeroClipboard.swf',
+        copy: $(".galery-image").text(),
+        beforeCopy: function () {
+            $(this).css('background', 'yellow');
+            $(this).css('color', 'orange');
+            alert('Before');
+        },
+        afterCopy: function () {
+            alert('After');
+            $(this).css('background', 'orange');
+            $(this).css('color', 'yellow');
+
+        }
+    });*@
+
+
+    $(".galery-file-name").mouseleave(function () {
+        $(this).find("span").css('visibility', 'hidden');
+    });
+
+    $(".file-name-editor-btn").click(function (e) {
+        e.preventDefault();
+        $(this).parent().next().find(".galery-filename-editor").css('visibility', 'visible');
+    });
+    
+    $(".galery-item").mouseleave(function () {
+        //  $(this).parent().next().find(".galery-filename-editor").css('visibility', 'visible');
+        $(".galery-filename-editor").css('visibility', 'hidden');
+        $(this).find("a.glyphicon").css('visibility', 'hidden');
+    });
+</script>

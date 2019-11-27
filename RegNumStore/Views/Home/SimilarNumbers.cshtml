@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Domain.Entities.Product>
+
+@{
+    Layout = null;
+}
+
+@*<div id="randomNum">
+    @foreach (var product in Model)
+    {
+         <div class="rev-n">
+             <div>
+                 <p class="photo">
+                     @{
+                         if (System.IO.File.Exists(System.IO.Path.Combine(Server.MapPath(Url.Content("~/Content")), "img", product.ProductID + ".jpg")))
+                         {
+                             <a href="@Url.Action("NumInfo","Home", new {productId = @product.ProductID})"><img src="@Url.Content("~/Content/img/"+@product.ProductID + ".jpg")" alt="Красивые номера на авто: @product.ProductNumber" width="280" height="421" /></a>
+                         }
+                         else
+                         {
+                             <a href="@Url.Action("NumInfo","Home", new {productId = @product.ProductID})"><img src="@Url.Content("~/Content/images/template.jpg")" alt="Ada Ocean" width="280" height="421" /></a>
+                         }
+                     }
+                 </p>
+             </div>
+             </div>
+    }
+</div>*@
+
+
+
+
+                <div id="slideshow">
+                    <ul class="slides">
+                        @for (int i = 1; i < 4; i++)
+                            {
+                                <li style="width: 100%">
+                                                                        @foreach (var p in Model.OrderByDescending(x => x.ProductID).Skip((i - 1) * 4).Take(4))
+                                    {
+                                        <p class="photo" style="width: 65%; margin: auto">
+                                            @if (System.IO.File.Exists(System.IO.Path.Combine(Server.MapPath(Url.Content("~/Content")), "img", p.ProductID + ".jpg")))
+                                            {
+                                                <a href="@Url.Action("NumInfo","Home", new {productId = @p.ProductID})"><img src="@Url.Content("~/Content/img/"+@p.ProductID + ".jpg")" alt="Красивые номера на авто: @p.ProductNumber" width="280" height="421" /></a>
+                                            }
+                                            else
+                                            {
+                                                <a href="@Url.Action("NumInfo","Home", new {productId = @p.ProductID})"><img src="@Url.Content("~/Content/images/template.jpg")" alt="Ada Ocean" width="280" height="421" /></a>
+                                            }
+                                        </p><p style="text-align: center; font-weight: bolder; color: #EC6115">@string.Format("{0:0,##}", p.Price) р.</p>
+                     
+                                    }
+                                </li>        
+                            }
+      
+    </ul>
+    <span class="arrow previous">Назад</span>
+    <span class="arrow next">Вперед</span>
+</div>                  
+                        
+                        
+                        
+@*                                       <div id="slideshow">
+    <ul class="slides">
+        <li style="width: 100%">
+            <p class="photo"><img src="../../Content/img/1.jpg" alt="Marsa Alam underawter close up" /></p><p>текст1</p>
+            <p class="photo"><img src="../../Content/img/2.jpg"  alt="Turrimetta Beach - Dawn" /></p><p>текст2</p>
+            <p class="photo"><img src="../../Content/img/3.jpg" alt="Power Station" /></p><p>текст3</p>
+            <p class="photo"><img src="../../Content/img/4.jpg" alt="Colors of Nature" /></p><p>текст4</p>
+        </li>
+        
+        <li style="width: 100%">
+            <p class="photo"><img src="../../Content/img/5.jpg" alt="Marsa Alam underawter close up" /></p><p>текст5</p>
+            <p class="photo"><img src="../../Content/img/6.jpg"  alt="Turrimetta Beach - Dawn" /></p><p>текст6</p>
+            <p class="photo"><img src="../../Content/img/7.jpg" alt="Power Station" /></p><p>текст7</p>
+            <p class="photo"><img src="../../Content/img/8.jpg" alt="Colors of Nature" /></p><p>текст8</p>
+        </li>
+        
+        <li style="width: 100%">
+            <p class="photo"><img src="../../Content/img/9.jpg" alt="Marsa Alam underawter close up" /></p><p>текст9</p>
+            <p class="photo"><img src="../../Content/img/10.jpg"  alt="Turrimetta Beach - Dawn" /></p><p>текст10</p>
+            <p class="photo"><img src="../../Content/img/11.jpg" alt="Power Station" /></p><p>текст11</p>
+            <p class="photo"><img src="../../Content/img/12.jpg" alt="Colors of Nature" /></p><p>текст12</p>
+        </li>
+        
+
+    </ul>
+    <span class="arrow previous">Назад</span>
+    <span class="arrow next">Вперед</span>
+</div>*@
+
+    
+         
+
+
+

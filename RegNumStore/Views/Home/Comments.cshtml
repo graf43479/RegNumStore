@@ -1,0 +1,56 @@
+﻿@using Domain.Entities
+@using RegNumStore.Models
+@model IEnumerable<Domain.Entities.Comment>
+
+@{
+    Layout = "~/Views/Shared/_LayoutExtended.cshtml";
+    SimpleSeoViewModel attr = (SimpleSeoViewModel)ViewBag.SEO;
+    if (attr != null)
+    {
+        ViewBag.Title = attr.Tittle;
+        ViewBag.Robots = attr.Robots;
+        ViewBag.Keywords = attr.Keywords;
+        ViewBag.Snippet = attr.Snippet;
+    }
+}
+
+
+<div class="page wrapper">
+    <div id="crumbs">
+        <ul class="exbreadcumb">
+            <li>@Html.ActionLink("Главная","Portfolio","Home")</li>
+            <li class="active">@Html.ActionLink("Вопрос/Ответ","Comments","Home")</li>
+        </ul>
+    </div>
+    <h1>Вопрос/ответ</h1>
+    <div class="revs clearfix" id="revs">
+        <div class="rev photo">
+            <div>
+                @*<a href="inc/rev.html" class="showcase link" data-rel="lightcase" data-height="280">*@
+                <a href=@Url.Action("SendComment") class="showcase link" data-rel="lightcase" data-height="280" rel="nofollow, noindex">
+                    Задать вопрос
+                </a>
+                <p>
+                    @*<a class="modal" href="upload-files/6zo1F5mPW4Y.jpg"><img src="upload-files/6zo1F5mPW4Y.jpg" alt="Ada Ocean" width="280" height="421" /></a>*@
+                    <img src="@Url.Content("~/Content/images/i.jpg")" alt="Ada Ocean" width="280" height="421" />
+                </p>		
+            </div>
+        </div>
+        @foreach (var comment in Model)
+        {
+            <div class="rev">
+                <div>
+                    <p class="nameRev">@comment.Tittle</p>
+                    <p><p>@comment.QuestionText</p></p>
+                    @*<p class="dateRev">19 августа 2015 г.</p>*@
+                    <p class="dateRev">@comment.CreateDate.ToShortDateString()</p>
+                    <p>
+                        <p>@comment.AnswerText</p>
+                    </p>
+                    <p class="dateRev">@comment.AnswerDate.ToShortDateString()</p>
+                </div>
+            </div>    
+        }
+    </div>
+</div>
+

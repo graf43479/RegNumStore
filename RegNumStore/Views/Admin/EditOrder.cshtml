@@ -1,0 +1,90 @@
+﻿@model Domain.Entities.Order
+
+@{
+    ViewBag.Title = "EditComment";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Редактирование заказов</h2>
+
+<style>
+    form {
+        border: none;
+    }
+</style>
+
+
+<ul class="breadcrumb">
+    @{
+        <li><a href="@Url.Action("Index", "Admin")">Главная</a> <span class="divider">/</span></li>
+        <li class=""><a href="@Url.Action("Orders", "Admin")">Заказы</a> <span class="divider">/</span></li>
+        <li class="active"><a href="@Url.Action("EditOrder", new {orderId = @Model.OrderID})">Редактировать заказ "@Model.OrderID"</a> <span class="divider">/</span></li>
+    }
+</ul>
+
+
+@*
+    public DateTime StartDate { get; set; }
+           public string ProductNumber { get; set; }
+
+           public string Email { get; set; }
+           public string Phone { get; set; }
+           public string Name { get; set; }
+
+           public int RegionID { get; set; }
+
+           public string Comment { get; set; }
+*@
+
+        @using (Html.BeginForm("EditOrder", "Admin"))
+        {
+
+            <div class="editor-field"> @Html.HiddenFor(model => model.OrderID)</div>
+
+            <div class="col-lg-12 col-md-12" style="padding: 0">
+                <div class="form-group" style="padding: 0">
+
+                    <div class="col-lg-1 " style="padding: 0; padding-right: 15px;"> @Html.Label("ProductNumber") </div>
+                    <div class="col-lg-4" style="padding: 0; margin-bottom: 5px;"> @Html.TextBoxFor(model => model.ProductNumber, new {@class = "form-control"})</div>
+
+                    <div class="col-lg-1" style="text-align: right; padding: 0; padding-right: 15px;"> @Html.Label("Email") </div>
+                    <div class="col-lg-3" style="padding: 0; margin-bottom: 5px;"> @Html.TextBoxFor(model => model.Email, new {@class = "form-control"})</div>
+                </div>
+            </div>
+            
+            <div class="col-lg-12 col-md-12" style="padding: 0">
+                <div class="form-group" style="padding: 0">
+         
+                    <div class="col-lg-1 " style="padding: 0; padding-right: 15px;"> @Html.Label("Phone") </div>    
+                    <div class="col-lg-4" style="padding: 0; margin-bottom: 5px;"> @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })</div>    
+     
+                    <div class="col-lg-1 " style="padding: 0; padding-right: 15px;"> @Html.Label("Name") </div>
+                    <div class="col-lg-4" style="padding: 0; margin-bottom: 5px;"> @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })</div>  
+                </div></div>
+
+            <div class="col-lg-12 col-md-12" style="padding: 0; margin-bottom: 5px;">
+                <div class="col-lg-1 col-md-1 form-control-static" style="padding-left: 0px;"> @Html.Label("Comment") </div>
+                <div class="col-lg-11 col-md-11" style="padding: 0; margin-bottom: 5px;"> @Html.TextAreaFor(model => model.Comment, new { @class = "form-control", @style = "min-height: 150px;" })</div>
+            </div>
+           
+            
+             <input class="btn btn-info col-lg-2 col-lg-offset-10" value="Сохранить" type="submit" style="margin-bottom: 20px"/>
+        }
+        
+        
+<script>
+    var p = $("#menu li a[href='/Admin/Comments']");
+    p.parent().addClass("selected");
+</script>
+
+
+   <script type="text/javascript">
+       $(document).ready(function () {
+           $('#CreateDate').datepicker({ firstDay: 1, dateFormat: 'dd.mm.yy' });
+           $('.datePicker').datepicker({ firstDay: 1, dateFormat: 'dd.mm.yy' });
+           $.datepicker.setDefaults({ dayNamesMin: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'] });
+           $.datepicker.setDefaults({ monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'] });
+           $("#ui-datepicker-div").hide();
+
+       });
+        </script> 

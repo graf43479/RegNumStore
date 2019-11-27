@@ -1,0 +1,126 @@
+﻿@using Domain.Entities
+@model RegnumStore.Models.ProductPagedListViewModel
+
+@{
+    Layout = null;
+}
+@functions
+{
+
+    public string ShortIt(string word)
+    {
+        try
+        {
+            return (word.Length > 11) ? word.Substring(0, 4) + ".." + word.Substring(word.Length - 4, 4).ToLower() : word.ToLower();
+        }
+        catch (Exception)
+        {
+            return word.ToLower();
+        }
+    }
+}
+
+@if (Model.Products.Any())
+{
+    foreach (var product in Model.Products)
+ {
+    <div class="rev-n">
+        <div>
+            <p class="photo">
+                @{if (System.IO.File.Exists(System.IO.Path.Combine(Server.MapPath(Url.Content("~/Content")), "img", product.ProductID + ".jpg")))
+                  {
+                    <a href="@Url.Action("NumInfo", "Home", new { productId = @product.ProductID })"><img src="@Url.Content("~/Content/img/" + @product.ProductID + ".jpg")" alt="Красивые номера на авто: @product.ProductNumber" width="280" height="421" /></a>
+                  }
+                  else
+                  {
+                    <a href="@Url.Action("NumInfo", "Home", new { productId = @product.ProductID })"><img src="@Url.Content("~/Content/images/template.jpg")" alt="Ada Ocean" width="280" height="421" /></a>
+                  }
+                }
+            </p>
+            
+            @*<p class="nameRev">@product.ProductNumber</p>*@
+            @*<p class="nameRev">@product.Price.ToString("C")</p>*@
+            <p class="nameRev">@string.Format("{0:0,##}", product.Price) р.</p>
+            <p class="nameRev">@ShortIt(product.User.Login)</p>
+
+            @*<p class="nameRev">Юзер1 имя </p>*@
+            <p class="nameRev">@product.StartDate.ToShortDateString()</p>
+            
+            @*<p class="nameRev">
+                @foreach (Category p in product.Categories)
+                {
+                    <b>@p.CategoryName</b>
+                }
+            </p>
+            <p>Test text</p>*@
+        </div>
+    </div>
+ }  
+}
+
+
+            @*@foreach (var product in Model.Products)
+        {
+            <div class="rev-num" style="clear: left; border: 1px solid #f1f1f1; ">
+              <div class="rev-num photo" style="">
+                <div>
+                    <p>
+                        @{if (System.IO.File.Exists(System.IO.Path.Combine(Server.MapPath(Url.Content("~/Content")), "img", product.ProductID + ".jpg")))
+                        {
+                           <a href="@Url.Action("NumInfo","Home", new {productId = @product.ProductID})"><img src="@Url.Content("~/Content/img/"+@product.ProductID + ".jpg")" alt="Красивые номера на авто: @product.ProductNumber" width="280" height="421" /></a>
+                        }
+                          else
+                          {
+                          <a href="@Url.Action("NumInfo","Home", new {productId = @product.ProductID})"><img src="@Url.Content("~/Content/images/template.jpg")" alt="Ada Ocean" width="280" height="421" /></a>
+                          }
+                        }
+                    </p>		
+                </div>
+            </div>
+            
+             <div class="rev-num">
+            <div>
+                <p class="nameRev">Продажа</p>
+            </div>
+            </div>   
+            
+            <div class="rev-num">
+                <div>
+                    <p class="nameRev">@product.ProductNumber</p>
+                </div>
+            </div>
+            <div class="rev-num">
+                <div>
+                    <p class="nameRev">Юзер1 имя </p>
+                </div>
+            </div>
+                
+                <div class="rev-num">
+                <div>
+                    <p class="nameRev">@product.Price.ToString("C")</p>
+                </div>
+            </div>
+            <div class="rev-num">
+                <div>
+                    <p class="nameRev">@product.StartDate.ToShortDateString()</p>
+                </div>
+            </div>
+          </div>
+            
+        }*@
+        
+
+
+
+
+<script>
+    $('#revs-n').freetile({
+        animate: true,
+        elementDelay: 30,
+        selector: '.portfolio-modal, .rev-n'
+    });
+
+</script>
+    
+    
+    

@@ -1,0 +1,52 @@
+﻿@*@model IEnumerable<Domain.Entities.Product>*@
+@using Domain.Entities
+@using RegNumStore.Models
+@model RegnumStore.Models.ProductPagedListViewModel
+
+@{
+    
+    Layout = "~/Views/Shared/_LayoutExtended.cshtml";
+    SimpleSeoViewModel attr = (SimpleSeoViewModel)ViewBag.SEO;
+    if (attr != null)
+    {
+        ViewBag.Title = attr.Tittle;
+        ViewBag.Robots = attr.Robots;
+        ViewBag.Keywords = attr.Keywords;
+        ViewBag.Snippet = attr.Snippet;
+    }
+    
+}
+
+@*@{
+    try
+    {
+        if (String.IsNullOrEmpty(Model.CurrentCategory))
+        {
+            ViewBag.Title = "База номеров";
+            ViewBag.Snippet = "Портфолио фотографа. Свадебная фотосъемка";
+            ViewBag.Keywords = "Портфолио свадьбы фотографии мероприятия памятные события";
+        }
+        else
+        {
+           // Category p = @Model.Products.FirstOrDefault(x => x.Categories.CategoryName != null).Category;
+           // ViewBag.Title = p.CategoryName;
+          //  ViewBag.Snippet = p.Snippet;
+          //  ViewBag.Keywords = p.Description;
+        }
+        
+    }
+    catch (Exception)
+    {
+        //ViewBag.Title = "Категория товара";
+    }
+}*@
+
+
+
+@Html.Partial("PortfolioPartialView", Model)
+
+<div id="loadingDiv" style="text-align: center; display: none; margin-bottom: 20px;">
+    <img alt="Loading" src="@Url.Content("~/Content/Images/ajax-loader.gif")"/>
+</div>
+
+

@@ -1,0 +1,116 @@
+﻿@model RegnumStore.Models.LoginModel
+
+@{
+    if (Session["attempt"] == null)
+    {
+        Session["attempt"] = 0;
+    }
+
+}
+
+
+@{
+    Layout = null;
+}
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/fonts.css")"/>
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/style.css")"/>
+
+
+<div class="wrappAdd">
+      
+    @using (@Html.BeginForm("LoginUser", "Account", new { ReturnUrl = ViewBag.ReturnUrl, isAjax = true }, FormMethod.Post, new { @id = "form" }))
+    {
+      
+        @Html.ValidationSummary(false)
+        @Html.ValidationMessageFor(x=>x.Password)
+        <p>@Html.TextBoxFor(m => m.UserName, new {@placeholder = Html.DisplayNameFor(x=>x.UserName)})</p>
+                    <p>@Html.PasswordFor(m => m.Password, new {@placeholder = Html.DisplayNameFor(x=>x.Password)})</p>
+                    <p>@Html.CheckBoxFor(m => m.RememberMe) @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })</p>
+                   
+         @*if((int)Session["attempt"] > 3)
+                    {
+                        <p>@Html.LabelFor(m => m.Captcha)</p>
+                        <p><a href="@Url.Action("Login")"><img alt="Capcha" src="@Url.Action("CaptchaImage")" style=""/></a></p>
+                        <p>@Html.TextBoxFor(m => m.Captcha, new {@placeholder = "Ответ"})</p>
+                    }
+                    <p><input type="submit" value="Войти" /></p>*@
+        
+        <div id="result"></div>  
+                
+        <p><input class="submit_rev" type="submit" name="submit" value="Войти"> <img src="@Url.Content("~/Content/images/loading.gif")" id="load" /></p>
+    }
+    
+
+    
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.8.2.min.js")"></script>
+</div>
+
+
+<script>
+
+
+
+    $('.submit_rev').click(function () {
+
+        $('#load').show();
+        var name = $('#UserName').val();
+        var pwd = $('#Password').val();
+        var rmb = $('#RememberMe').val();
+
+        var viewModel = new Object();
+        viewModel.UserName = name;
+        viewModel.Password = pwd;
+        viewModel.RememberMe = rmb;
+
+
+
+        $.post(
+            'LoginUser',
+            viewModel,
+            function (data) {
+                //if (data.message == 'redirect') {
+                    //window.open("http://localhost:58920/Account/Login");
+                    //window.close();
+                    
+                    // redirectTo();
+
+                    //function redirectTo() {
+                   //     $(".wrappAdd").css("display", "none");
+                     //   $("a.lightcase-icon-close").click();
+                       // parent.$("a.lightcase-icon-close").trigger("click");
+                    //window.location.assign('http://localhost:58920/Account/Login');
+                    // lightcase.close();
+
+                    //$(".lightcase-contentInner").remove();
+
+                    //document.location.href = "http://localhost:58920/Account/Login";
+
+                    //$(location).attr('href', 'http://stackoverflow.com');
+                    //}
+          //  }
+        //else 
+        if (data.success == 'true') {
+                    $(".wrappAdd").css("display", "none");
+                    $("a.lightcase-icon-close").click();
+                    parent.$("a.lightcase-icon-close").trigger("click");
+                } else {
+                    //alert('Данные заполнены некорректно'+ ': ' + data.message);
+                    $("#result").text("");
+                    $("#result").css('display', 'block');
+                    $("#result").append('<ul>');
+                    for (var i = 0; i < data.message.length; i++) {
+                        if (data.message[i]!="") {
+                            //alert(data.message[i]);
+                            $("#result").append('<li style="color: red">' + data.message[i] + '</li>');
+                        }
+                    }
+                    $("#result").append('</ul>');
+                }
+                $('#load').hide();
+            });
+
+        return false;
+    });
+
+
+</script>

@@ -1,0 +1,178 @@
+﻿@using Domain.Entities
+@model RegNumStore.Models.ProductRegNumViewModel
+
+@{
+    ViewBag.Title = "EditRegNum";
+    Layout = "~/Views/Shared/_LayoutExtended.cshtml";
+    ViewBag.Robots = "nofollow, noindex";   
+
+    string[] arr = { "*", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+    string[] arr2 = { "*", "А", "В", "С", "Е", "Н", "К", "М", "О", "Р", "Т", "Х", "У" };
+    
+    bool[] arr3 = {true, false};
+    
+    List<string> nums  = arr.ToList();
+    List<string> nums2 = arr2.ToList();
+    //List<bool> nums3 = arr3.ToList();
+
+    bool disab = Model.ProductID!=0 ? true : false;
+
+    string num = Model.Num1 + Model.Num2 + Model.Num3 + Model.Num4 + Model.Num5 + Model.Num6 + Model.Num7; 
+}
+
+
+<link href="@Url.Content("~/Content/css/jquery.formstyler.css")" rel="stylesheet" type="text/css" />
+
+
+
+<script>
+    (function ($) {
+        $(function () {
+
+            $('input, select').styler();
+
+        });
+    })(jQuery);
+</script>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/js/jquery.formstyler.min.js")"></script>
+
+<div class="page wrapper">
+    @{
+        if (Model.ProductID != 0)
+        {
+                 <div id="crumbs">
+        <ul class="exbreadcumb">
+            <li>@Html.ActionLink("Главная","Portfolio","Home")</li>
+            <li>@Html.ActionLink("Личный кабинет","UserInfo","Account")</li>
+            <li class="active">@Html.ActionLink("Правка номера " + @num +"","UpdateRegNum","Account", new {productId=@Model.ProductID}, null)</li>
+        </ul>
+    </div>
+            <h1>Правка номера "@Model.Num1@Model.Num2@Model.Num3@Model.Num4@Model.Num5@Model.Num6@Model.Num7"</h1>
+        }
+        else
+        {     
+            <div id="crumbs">
+                <ul class="exbreadcumb">
+                          <li>@Html.ActionLink("Главная","Portfolio","Home")</li>
+                          <li>@Html.ActionLink("Личный кабинет","UserInfo","Account")</li>
+                          <li class="active">@Html.ActionLink("Новый регистрационный номер","EditRegNum","Account")</li>
+                      </ul>
+            </div>
+                <h1>Новый регистрационный номер</h1>
+        }
+    }
+    
+    <div class="navigation-portfolio" style="margin: 10px;">
+        
+    </div>
+    @using (Html.BeginForm("EditRegNum", "Account", FormMethod.Post, new { enctype = "multipart/form-data", style = "visibility: hidden", id ="regForm" }))
+        {
+    
+        
+            @Html.ValidationSummary(false)
+            @Html.HiddenFor(x=>x.Regions)
+        //@Html.HiddenFor(x=>x.Categories)
+            @Html.HiddenFor(x=>x.ProductID)
+
+            
+                      <div>
+                @* @Html.DropDownListFor(model => model.SelectedCategoryID,new SelectList(Model.Categories, "CategoryID", "CategoryName"), "--Выберите категорию--", @readonl ? (object)new { @class = "form-control", @readonly = "readonly" } : (object)new { @class = "form-control" })*@
+                @*<p>Серия:@Html.DropDownListFor(x=>x.Num1, new SelectList(nums2),new {@class="width-200"})</p>
+                <p>Номер: @Html.DropDownListFor(x=>x.Num2, new SelectList(nums),new {@class="width-200"})@Html.DropDownListFor(x=>x.Num3, new SelectList(nums),new {@class="width-200"})@Html.DropDownListFor(x=>x.Num4, new SelectList(nums),new {@class="width-200"})</p>
+                <p>Серия:@Html.DropDownListFor(x=>x.Num5, new SelectList(nums2),new {@class="width-200"})@Html.DropDownListFor(x=>x.Num6, new SelectList(nums2),new {@class="width-200"})</p>
+                <p>Регион:@Html.DropDownListFor(x=>x.Num7, new SelectList(Model.Regions.OrderBy(x=>x.Sequence).ThenBy(x=>x.RegionNumber), "RegionNumber", "RegionNumber"))</p>*@
+                
+                          <div id="reg-num" style="margin: 0 auto;  height: 70px; width: 290px; background: url('../../Content/images/template2.jpg') no-repeat">
+                              @*<img src="~/Content/img/cache/template.jpg"/>*@
+                              @*@disabled = (Model.ProductID == 0 ? "false" : "disabled")*@
+
+
+                             
+
+
+                        @Html.DropDownListFor(x => x.Num1, new SelectList(nums2), @disab ? (object)new { @class = "width-200", @disabled = "disabled" } : (object)new { @class = "width-200" })
+                    @Html.DropDownListFor(x => x.Num2, new SelectList(nums), @disab ? (object)new { @class = "width-200", @disabled = "disabled" } : (object)new { @class = "width-200" })
+                    @Html.DropDownListFor(x=>x.Num3, new SelectList(nums), @disab ? (object)new { @class = "width-200", @disabled = "disabled" } : (object)new { @class = "width-200" })
+                    @Html.DropDownListFor(x=>x.Num4, new SelectList(nums), @disab ? (object)new { @class = "width-200", @disabled = "disabled" } : (object)new { @class = "width-200" })
+                    
+                    @Html.DropDownListFor(x=>x.Num5, new SelectList(nums2), @disab ? (object)new { @class = "width-200", @disabled = "disabled" } : (object)new { @class = "width-200" })
+                    @Html.DropDownListFor(x=>x.Num6, new SelectList(nums2), @disab ? (object)new { @class = "width-200", @disabled = "disabled" } : (object)new { @class = "width-200" })
+                    @Html.DropDownListFor(x=>x.Num7, new SelectList(Model.Regions.OrderBy(x=>x.Sequence).ThenBy(x=>x.RegionNumber), "RegionNumber", "RegionNumber"), @disab ? (object)new { @disabled = "disabled" } : (object)new { })
+
+                    </div>
+                    
+                
+            </div>
+            
+            
+  
+            
+    <div class="accountLeft">        
+                   <div>
+                    
+                   @* @Html.DropDownListFor(model => model.CategoryID,new SelectList(Model.Categories, "CategoryID", "CategoryName"), "--Выберите категорию--")</p>*@
+            </div>
+        <div>
+            @* @Html.DropDownListFor(model => model.SelectedCategoryID,new SelectList(Model.Categories, "CategoryID", "CategoryName"), "--Выберите категорию--", @readonl ? (object)new { @class = "form-control", @readonly = "readonly" } : (object)new { @class = "form-control" })*@
+            <p>Цена: @Html.EditorFor(x => x.Price, new {@class = "styler"})</p>
+            @*<p>Перевес номера включен?: @Html.DropDownListFor(x => x., new { @class = "styler" })</p>*@
+            @*<p>Перевес номера включен?: @Html.DropDownList("IsOverbalanceIncluded", , new {@class = "styler"})</p>*@
+            @*<p>Перевес номера включен?: @Html.DropDownListFor(x=>x.IsOverbalanceIncluded, new SelectList(nums3), new {@class = "styler"})</p>*@
+            <p>Перевес номера включен: @Html.CheckBoxFor(x=>x.IsOverbalanceIncluded, new {@class = "styler"})</p>
+        </div>
+        @*   @Html.DropDownListFor(x => x.Num1, new SelectList(nums2), @disab ? (object)new { @class = "width-200", @disabled = "disabled" } : (object)new { @class = "width-200" })*@
+        <div>
+            @{
+                if (Model.Categories.Any() && (Model.ProductID!=0))
+                {
+                      <p>Категория номера: </p>
+                <ul>
+                  @foreach (var p in Model.Categories)
+                  {
+                    <li>@p.CategoryName</li>
+                }
+                </ul>
+                }
+                
+            }
+            
+        </div>
+    </div> 
+            <div class="accountRight">
+            <div>
+                <p>Описание: @Html.TextAreaFor(x => x.Description, new { @class = "styler" })</p>
+            </div>
+            <input type="submit" class="action-btn" value="OK"/>    
+               
+            </div>
+        }
+    </div>
+      
+
+      <script>
+          $(document).ready(function () {
+              for (var i = 1; i < 7; i++) {
+                  $("#Num" + i + "-styler").attr('style', $("#Num" + i + "-styler").attr('style') + '; ' + 'left: 8px !important; text-align: center');
+                  $("#Num" + i + "-styler .jq-selectbox__select-text").css("width", "25px");
+              }
+              $("#Num7-styler").attr('style', $("#Num7-styler").attr('style') + '; ' + 'left: 13px !important; text-align: center');
+              $(".wrapper form").css("visibility", "visible");
+          });
+      </script>
+    
+    
+    
+
+@*<script>
+    $('#Regions').validate({
+        invalidHandler: function () {
+
+            setTimeout(function () {
+                
+                $('input, select').trigger('refresh');
+            }, 1);
+
+        }
+    });
+</script>*@

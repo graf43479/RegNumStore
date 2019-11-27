@@ -1,0 +1,79 @@
+﻿@using Domain.Entities
+@using RegNumStore.Models
+@{
+    
+    Layout = "~/Views/Shared/_LayoutIndexExtended.cshtml";
+    SimpleSeoViewModel attr = (SimpleSeoViewModel)ViewBag.SEO;
+    if (attr != null)
+    {
+        ViewBag.Title = attr.Tittle;
+        ViewBag.Robots = attr.Robots;
+        ViewBag.Keywords = attr.Keywords;
+        ViewBag.Snippet = attr.Snippet;
+    }
+}
+@*@section featured {
+    <section class="featured">
+        
+    </section>
+}*@
+
+<div class="wrapper indexMenu">
+		<ul>
+	        <li class="logo">
+		        <img src="@Url.Content("~/Content/images/logotypeColor.png")" alt="Ada Ocean" />
+	        </li>
+		   
+    
+<li>@Html.ActionLink("База номеров", "Portfolio","Home")</li>
+
+<li>@Html.ActionLink("Заказать", "Contact", "Home", null,new {rel="follow, index"})</li>
+<li>@Html.ActionLink("О нас", "About", "Home", null,new {rel="follow, index"})</li>
+<li>@Html.ActionLink("Вопрос/ответ", "Comments", "Home", null,new {rel="follow, index"})</li>
+
+                        @if (HttpContext.Current.User.Identity.IsAuthenticated)
+                        {
+                            <li>@Html.ActionLink("Личный кабинет", "UserInfo", "Account", null,new {rel="nofollow, noindex"})</li>
+                            <li>@Html.ActionLink("Выйти", "LogOff", "Account", null,new {rel="nofollow, noindex"})</li>
+                        }
+                        @if (HttpContext.Current.User.Identity.IsAuthenticated!=true)
+                        {
+                            <li>@Html.ActionLink("Войти", "Login", "Account", null,new {rel="nofollow, noindex"})</li>
+                            <li>@Html.ActionLink("Регистрация", "Register", "Account", null,new {rel="nofollow, noindex"})</li>
+                        }
+                        
+                        
+                        @if (HttpContext.Current.User.IsInRole("admin"))
+                        {
+                            <li class="">@Html.ActionLink("Админка", "Categories","Admin")</li>
+                        }
+
+		    <li class="phone">
+		        <h2 class="phone">(926) 713-88-36</h2>
+		        <p class="soc">Я в соцсети:</p><p class="soc">
+		                                           <a target="_blank" href="https://www.facebook.com/adaoceanfoto" rel="nofollow, noindex">
+		                                               <img src="@Url.Content("~/Content/images/face.png")" alt="" width="25" />
+		                                           </a> 
+		                                           <a target="_blank" href="http://instagram.com/adaocean" rel="nofollow, noindex">
+		                                               <img src="@Url.Content("~/Content/images/inst.png")" alt="" width="25" />
+		                                           </a> 
+		                                           <a target="_blank" href="http://adaocean.livejournal.com/" rel="nofollow, noindex">
+		                                               <img src="@Url.Content("~/Content/images/jj.png")" alt="" width="25" />
+		                                           </a> 
+                                                   <a target="_blank" href="http://vimeo.com/user19682450" rel="nofollow, noindex">
+		                                                    <img src="@Url.Content("~/Content/images/lj.png")" alt="" width="25" />
+		                                           </a> 
+                                                   <a target="_blank" href="https://twitter.com/AdaOcean" rel="nofollow, noindex">
+		                                                         <img src="@Url.Content("~/Content/images/twitter.png")" alt="" width="25" />
+		                                                     </a> <a target="_blank" href="http://vk.com/adaocean" rel="nofollow, noindex">
+		                                                              <img src="@Url.Content("~/Content/images/vk.png")" alt="" width="25" />
+		                                                          </a> 
+		                                       </p>	
+		    </li>
+		</ul>
+</div>
+<div class="page wrapper">
+</div>
+<div class="over-modal">
+    <div class="close"></div>
+</div>

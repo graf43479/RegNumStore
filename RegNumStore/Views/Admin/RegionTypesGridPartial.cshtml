@@ -1,0 +1,73 @@
+﻿@using MvcContrib.UI.Grid
+@model RegnumStore.Models.PagedViewModel<Domain.Entities.RegionType>
+
+
+
+@{
+    Html.RenderPartial("Pager", Model.PagedList);
+}
+
+
+@Html.Grid(Model.PagedList).Columns(column =>
+        {
+            //column.For(x => Ajax.ActionLink(x.ArticleDate.ToShortDateString(), "CreateSeoAttributes", new { seoAttributesId = x.SeoAttributeID }, new AjaxOptions
+            //    {
+            //        UpdateTargetId = "newsDetails",
+            //        InsertionMode = InsertionMode.Replace,
+            //        HttpMethod = "GET",
+            //        OnBegin = "gifLoaderBefore",
+            //        OnSuccess = "gifLoaderAfter",
+            //        OnFailure = "gifLoaderAfter",
+            //        OnComplete = "gifLoaderAfter"
+            //    })).SortColumnName("ArticleDate").Sortable(true).Named("Дата");
+
+
+            column.For(x => Ajax.ActionLink(x.RegionTypeID.ToString(), "CreateRegionType", new { regionTypeId = x.RegionTypeID }, new AjaxOptions
+            {
+                UpdateTargetId = "newsDetails",
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "GET",
+                OnBegin = "gifLoaderBefore",
+                OnSuccess = "gifLoaderAfter",
+                OnFailure = "gifLoaderAfter",
+                OnComplete = "gifLoaderAfter"
+            })).SortColumnName("RegionTypeID").Sortable(true).Named("ID").Attributes(x =>
+            {
+                return new
+                    Dictionary<string, object> { { "style", "word-break: normal; text-align: left;" } };
+            });
+
+
+            column.For(x => Ajax.ActionLink(x.RegionTypeDesc, "CreateRegionType", new { regionTypeId = x.RegionTypeID }, new AjaxOptions
+            {
+                UpdateTargetId = "newsDetails",
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "GET",
+                OnBegin = "gifLoaderBefore",
+                OnSuccess = "gifLoaderAfter",
+                OnFailure = "gifLoaderAfter",
+                OnComplete = "gifLoaderAfter"
+            })).SortColumnName("RegionTypeID").Sortable(true).Named("ID").Attributes(x =>
+            {
+                return new
+                    Dictionary<string, object> { { "style", "word-break: normal; text-align: left;" } };
+            });
+
+            //column.For(x => Ajax.ActionLink(x.TagID, "CreateSeoAttributes", new { seoAttributesId = x.TagID }, new AjaxOptions
+            //{
+            //    UpdateTargetId = "newsDetails",
+            //    InsertionMode = InsertionMode.Replace,
+            //    HttpMethod = "GET",
+            //    OnBegin = "gifLoaderBefore",
+            //    OnSuccess = "gifLoaderAfter",
+            //    OnFailure = "gifLoaderAfter",
+            //    OnComplete = "gifLoaderAfter"
+            //})).SortColumnName("TagID").Sortable(true).Named("TagID").Attributes(x =>
+            //{
+            //    return new
+            //        Dictionary<string, object> { { "style", "word-break: normal; text-align: left;" } };
+            //});
+
+        
+
+        }).Sort(Model.GridSortOptions).Attributes(@class => "table table-striped table-bordered table-hover table-condensed grid-style").Empty("Нет данных")

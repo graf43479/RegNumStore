@@ -1,0 +1,32 @@
+﻿@model RegnumStore.Models.PagedViewModel<RegNumStore.Models.OrderViewModel>
+
+@{
+    ViewBag.Title = "Заказы";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<ul class="breadcrumb">
+    @{
+        <li><a href="@Url.Action("Index", "Admin")">Главная</a> <span class="divider">/</span></li>
+        <li class="active"><a href="@Url.Action("Orders", "Admin")">Заказы</a> <span class="divider">/</span></li>
+    }
+</ul>
+
+<h2>Список заказов</h2>
+         
+        
+
+@{
+    Html.RenderPartial("OrderSearchBox");
+}
+
+<div class="table-list" id="sequence">
+    
+    @{
+        Html.RenderPartial("OrderGridPartial", Model);
+    }
+    
+</div>
+
+

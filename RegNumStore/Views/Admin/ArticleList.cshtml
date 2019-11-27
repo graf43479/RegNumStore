@@ -1,0 +1,56 @@
+﻿@model RegnumStore.Models.PagedViewModel<Domain.Entities.SeoAttribute>
+
+@{
+    ViewBag.Title = "Статьи";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style type="text/css">
+    .grid-style {
+        margin-left: 10px;
+        width: 1280px;
+        
+        
+    }
+</style>
+
+<ul class="breadcrumb">
+    @{
+        <li><a href="@Url.Action("Index", "Admin")">Главная</a> <span class="divider">/</span></li>
+        <li class="active"><a href="@Url.Action("ArticleList", "Admin")">Статьи</a> <span class="divider">/</span></li>
+    }
+</ul>
+
+<h2>Статьи</h2>
+
+<div id="newsList">
+
+
+<div class="table-list">
+@{
+   Html.RenderPartial("ArticleListGridPartial", Model);
+ }
+ </div>
+
+        
+</div>        
+
+@Html.Action("CreateArticle","Admin")
+
+@*
+
+
+
+<table>
+    <tr><th>Заголовок</th>
+    <th>Дата</th></tr>
+    @{
+        foreach (var p in Model)
+        {
+            <div class="eventList">
+                <tr><td>@Html.ActionLink(p.Header1, "CreateNews", new { newsId = p.NewsID })</td>
+                <td>@Html.ActionLink(p.NewsDate.ToShortDateString(), "CreateNews", new { newsId = p.NewsID })</td></tr>
+            </div>
+        }
+    }
+</table>*@

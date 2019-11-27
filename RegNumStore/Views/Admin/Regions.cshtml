@@ -1,0 +1,60 @@
+﻿@*@model IEnumerable<Domain.Entities.Region>*@
+@model RegnumStore.Models.PagedViewModel<Domain.Entities.Region>
+@*@model RegnumStore.Models.PagedViewModel<RegNumStore.Models.RegionViewModel>*@
+
+@{
+    ViewBag.Title = "Region";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style type="text/css">
+    .grid-style {
+        margin-left: 10px;
+        width: 1280px;
+    }
+</style>
+
+<ul class="breadcrumb">
+    @{
+        <li><a href="@Url.Action("Index", "Admin")">Главная</a> <span class="divider">/</span></li>
+        <li class="active"><a href="@Url.Action("Regions", "Admin")">Регионов</a> <span class="divider">/</span></li>
+    }
+</ul>
+
+<h2>Регионы</h2>
+
+@{
+    Html.RenderPartial("RegionSearchBox");
+}
+
+<div id="newsList">
+
+
+    <div class="table-list" id="sequence">
+        @{
+            Html.RenderPartial("RegionsGridPartial", Model);
+        }
+    </div>
+
+
+</div>
+
+@Html.Action("CreateRegion", "Admin")
+
+@*
+
+
+
+    <table>
+        <tr><th>Заголовок</th>
+        <th>Дата</th></tr>
+        @{
+            foreach (var p in Model)
+            {
+                <div class="eventList">
+                    <tr><td>@Html.ActionLink(p.Header1, "CreateNews", new { newsId = p.NewsID })</td>
+                    <td>@Html.ActionLink(p.NewsDate.ToShortDateString(), "CreateNews", new { newsId = p.NewsID })</td></tr>
+                </div>
+            }
+        }
+    </table>*@

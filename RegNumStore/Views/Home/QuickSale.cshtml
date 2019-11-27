@@ -1,0 +1,142 @@
+﻿@model RegNumStore.Models.OrderViewModel
+@{
+    ViewBag.Title = "QuickSale";
+    Layout = "~/Views/Shared/_LayoutExtended.cshtml";
+    ViewBag.Robots = "nofollow, noindex";
+    
+    string[] arr = { "*", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+    string[] arr2 = { "*", "А", "В", "С", "Е", "Н", "К", "М", "О", "Р", "Т", "Х", "У" };
+
+    var nums3 = Model.Regions.Select(x => x.RegionNumber).ToList();
+    nums3.Add("*");
+    nums3.Reverse();
+
+
+    List<string> nums = arr.ToList();
+    List<string> nums2 = arr2.ToList();
+
+
+    //bool disab = Model.ProductID != 0 ? true : false;
+
+    string num = Model.Num1 + Model.Num2 + Model.Num3 + Model.Num4 + Model.Num5 + Model.Num6 + Model.Num7;
+}
+
+
+<link href="@Url.Content("~/Content/css/jquery.formstyler.css")" rel="stylesheet" type="text/css" />
+
+<script>
+    (function ($) {
+        $(function () {
+
+            $('input, select').styler();
+
+        });
+    })(jQuery);
+</script>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/js/jquery.formstyler.min.js")"></script>
+
+
+<div class="page wrapper">
+    <div id="crumbs">
+        <ul class="exbreadcumb">
+            <li>@Html.ActionLink("Главная", "Portfolio", "Home")</li>
+            <li class="active">@Html.ActionLink("Срочная продажа", "About", "Home")</li>
+        </ul>
+    </div>
+    <h1>Продать номер</h1>
+    <div class="page-content">
+        <h2>Самостоятельная продажа номера</h2>
+        <p>Необходимо @Html.ActionLink("зарегистрироваться", "Register", "Account") и через личный кабинет @Html.ActionLink("размещать", "EditRegNum", "Account") объявления о продаже номеров. Услуга бесплатна.</p>
+
+
+        <h2>Быстрая продажа номера</h2>
+        <p>Вы заполняете форму, в которой указываете Ваш автономер для продажи, а мы выкупаем его у вас. У Вас не будет необходимости регистрироваться, отвечать на звонки потенциальных покупателей, ломать голову над реальной стоимостью номера.</p>
+
+        <div class="navigation-portfolio" style="margin: 10px;">
+
+        </div>
+        @using (Html.BeginForm("QuickSale", "Home", FormMethod.Post, new { enctype = "multipart/form-data", style = "visibility: hidden", id = "regForm" }))
+        {
+
+
+            @*@Html.ValidationSummary(false)*@
+            //  @Html.HiddenFor(x => x.Regions)
+            //@Html.HiddenFor(x=>x.Categories)
+            @Html.HiddenFor(x => x.OrderID)
+
+
+            <div>
+                @* @Html.DropDownListFor(model => model.SelectedCategoryID,new SelectList(Model.Categories, "CategoryID", "CategoryName"), "--Выберите категорию--", @readonl ? (object)new { @class = "form-control", @readonly = "readonly" } : (object)new { @class = "form-control" })*@
+                @*<p>Серия:@Html.DropDownListFor(x=>x.Num1, new SelectList(nums2),new {@class="width-200"})</p>
+                    <p>Номер: @Html.DropDownListFor(x=>x.Num2, new SelectList(nums),new {@class="width-200"})@Html.DropDownListFor(x=>x.Num3, new SelectList(nums),new {@class="width-200"})@Html.DropDownListFor(x=>x.Num4, new SelectList(nums),new {@class="width-200"})</p>
+                    <p>Серия:@Html.DropDownListFor(x=>x.Num5, new SelectList(nums2),new {@class="width-200"})@Html.DropDownListFor(x=>x.Num6, new SelectList(nums2),new {@class="width-200"})</p>
+                    <p>Регион:@Html.DropDownListFor(x=>x.Num7, new SelectList(Model.Regions.OrderBy(x=>x.Sequence).ThenBy(x=>x.RegionNumber), "RegionNumber", "RegionNumber"))</p>*@
+
+                <div id="reg-num" style="margin: 0 auto;  height: 70px; width: 290px; background: url('../../Content/images/template2.jpg') no-repeat">
+                    @*<img src="~/Content/img/cache/template.jpg"/>*@
+                    @*@disabled = (Model.ProductID == 0 ? "false" : "disabled")*@
+
+
+
+
+
+                    @Html.DropDownListFor(x => x.Num1, new SelectList(nums2), new { @class = "width-200" })
+                    @Html.DropDownListFor(x => x.Num2, new SelectList(nums), new { @class = "width-200" })
+                    @Html.DropDownListFor(x => x.Num3, new SelectList(nums), new { @class = "width-200" })
+                    @Html.DropDownListFor(x => x.Num4, new SelectList(nums), new { @class = "width-200" })
+
+                    @Html.DropDownListFor(x => x.Num5, new SelectList(nums2), new { @class = "width-200" })
+                    @Html.DropDownListFor(x => x.Num6, new SelectList(nums2), new { @class = "width-200" })
+                    @*@Html.DropDownListFor(x => x.Num7, new SelectList(Model.Regions.OrderBy(x => x.Sequence).ThenBy(x => x.RegionNumber), "RegionNumber", "RegionNumber"))*@
+                    @Html.DropDownListFor(x => x.Num7, new SelectList(nums3), new { @class = "width-200" })
+                </div>
+
+
+            </div>
+
+
+
+
+            <div class="accountLeft">
+                <div>
+
+                    @* @Html.DropDownListFor(model => model.CategoryID,new SelectList(Model.Categories, "CategoryID", "CategoryName"), "--Выберите категорию--")</p>*@
+                </div>
+                <div>
+                    @* @Html.DropDownListFor(model => model.SelectedCategoryID,new SelectList(Model.Categories, "CategoryID", "CategoryName"), "--Выберите категорию--", @readonl ? (object)new { @class = "form-control", @readonly = "readonly" } : (object)new { @class = "form-control" })*@
+                    <p>Имя: @Html.ValidationMessageFor(x => x.Name)  @Html.EditorFor(x => x.Name, new { @class = "styler" }) </p>
+                    <p>Телефон: @Html.ValidationMessageFor(x => x.Phone) @Html.EditorFor(x => x.Phone, new { @class = "styler" })</p>
+                    <p>Email: @Html.ValidationMessageFor(x => x.Email) @Html.EditorFor(x => x.Email, new { @class = "styler" }) </p>
+
+                    @*<p>Перевес номера включен?: @Html.DropDownListFor(x => x., new { @class = "styler" })</p>*@
+                    @*<p>Перевес номера включен?: @Html.DropDownList("IsOverbalanceIncluded", , new {@class = "styler"})</p>*@
+                    @*<p>Перевес номера включен?: @Html.DropDownListFor(x=>x.IsOverbalanceIncluded, new SelectList(nums3), new {@class = "styler"})</p>*@
+
+                </div>
+                @*   @Html.DropDownListFor(x => x.Num1, new SelectList(nums2), @disab ? (object)new { @class = "width-200", @disabled = "disabled" } : (object)new { @class = "width-200" })*@
+
+            </div>
+            <div class="accountRight">
+                <div>
+                    <p>Комментарий: @Html.TextAreaFor(x => x.Comment, new { @class = "styler" })</p>
+                </div>
+                <input type="submit" class="action-btn" value="OK" />
+
+            </div>
+        }
+    </div>
+
+
+    <script>
+        $(document).ready(function () {
+            for (var i = 1; i < 7; i++) {
+                $("#Num" + i + "-styler").attr('style', $("#Num" + i + "-styler").attr('style') + '; ' + 'left: 8px !important; text-align: center');
+                $("#Num" + i + "-styler .jq-selectbox__select-text").css("width", "25px");
+            }
+            $("#Num7-styler").attr('style', $("#Num7-styler").attr('style') + '; ' + 'left: 13px !important; text-align: center');
+            $(".wrapper form").css("visibility", "visible");
+        });
+    </script>
+    </div>
+    

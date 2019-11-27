@@ -1,0 +1,71 @@
+﻿
+<style type="text/css">
+    .form-group {
+        margin-bottom: 5px;
+        margin-top: 7px;
+    }
+
+ 
+</style>
+
+@{ AjaxOptions ajax = new AjaxOptions
+   {
+       UpdateTargetId = "sequence",
+       Url = Url.Action("Orders", "Admin"),
+       InsertionMode = InsertionMode.Replace,
+       HttpMethod = "GET"
+   };
+}
+
+@*@using (Html.BeginForm("Categories", "Admin", FormMethod.Get))
+{*@
+
+
+
+
+            @*@using (Html.BeginForm("Categories", "Admin", FormMethod.Get, new { @class = "form-horizontal", @style = "margin: 0 20px; padding: 0 20px;" }))*@
+            @using (Ajax.BeginForm(ajax))
+{
+    <div class="row">
+        <div class="col-lg-12 col-md-12" style="padding: 10px">
+            <div class="form-group">
+
+                <label class="col-lg-1 col-md-1 form-control-static">Поиск</label>
+                <div class="col-lg-4 col-md-4">@Html.TextBox("searchWord", null, new { @class = "form-control", @placeholder = "Введите поисковый запрос" })</div>
+                <label class="col-lg-1 col-md-1 form-control-static">Продажа</label>
+                @*<div class="col-lg-4 col-md-4">@Html.DropDownList("isForSale", "-- Все --")</div>*@
+
+                <div class="col-lg-4 col-md-4">
+                    <select name="isForSale" id="isForSale" class="form-group" style="margin: 0">
+                        <option value="">Все</option>
+                        <option value="false">Покупка</option>
+                        <option value="true">Продажа</option>
+                    </select>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <input class="btn btn-info col-md-12 col-lg-12" id="searcher" value="Поиск" type="submit" style="" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@*<script src="@Url.Content("~/Scripts/jquery-1.8.2.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>*@
+
+<script>
+    $(document).ready(function () {
+        $("#isForSale").addClass('form-control');
+
+
+
+        //$("#categoryId").addEventListener('focus', function () {
+        //    // Список открылся
+        //}, false);
+        $("#isForSale").change(function () {
+            $("#searcher").click();
+
+        });
+    });
+</script>

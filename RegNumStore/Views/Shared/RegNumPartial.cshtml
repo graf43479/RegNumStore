@@ -1,0 +1,35 @@
+﻿@using RegNumStore.Models
+ 
+
+@{
+    CarNumber carNumber = (CarNumber)TempData["SerializedNum"];
+}
+
+<div id="reg-num" style="margin: 0 auto; height: 70px; width: 290px; background: url('../../Content/images/template2.jpg') no-repeat;">
+
+    <select class="select width-200" id="Num1">
+        <option>@(carNumber.Num1 == null ? Html.Raw("*") : Html.Raw(carNumber.Num1))</option>
+    </select>
+    <select class="select width-200" id="Num2">
+        <option>@(carNumber.Num2 == null ? Html.Raw("*") : Html.Raw(carNumber.Num2))</option>
+    </select>
+    <select class="select width-200" id="Num3">
+        <option>@(carNumber.Num3 == null ? Html.Raw("*") : Html.Raw(carNumber.Num3))</option>
+    </select>
+    <select class="select width-200" id="Num4">
+        <option>@(carNumber.Num4 == null ? Html.Raw("*") : Html.Raw(carNumber.Num4))</option>
+    </select>
+    <select class="select width-200" id="Num5">
+        <option>@(carNumber.Num5 == null ? Html.Raw("*") : Html.Raw(carNumber.Num5))</option>
+    </select>
+    <select class="select width-200" id="Num6">
+        <option>@(carNumber.Num6 == null ? Html.Raw("*") : Html.Raw(carNumber.Num6))</option>
+    </select>
+    <select class="select width-200" id="Num7">
+        <option>@(carNumber.Num7 == null ? Html.Raw("*") : Html.Raw(carNumber.Num7))</option>
+    </select>
+
+</div>
+ 
+ 
+ 

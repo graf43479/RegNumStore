@@ -1,0 +1,59 @@
+﻿@using MvcContrib.UI.Grid
+
+@model RegnumStore.Models.PagedViewModel<Domain.Entities.SeoAttribute>
+
+
+
+
+
+@{
+    Html.RenderPartial("Pager", Model.PagedList);
+}
+
+
+@Html.Grid(Model.PagedList).Columns(column =>
+        {
+            column.For(x => Ajax.ActionLink(x.TagID, "CreateArticle", new {tagId = x.TagID}, new AjaxOptions
+                {
+                    UpdateTargetId = "newsDetails",
+                    InsertionMode = InsertionMode.Replace,
+                    HttpMethod = "GET",
+                    OnBegin = "gifLoaderBefore",
+                    OnSuccess = "gifLoaderAfter",
+                    OnFailure = "gifLoaderAfter",
+                    OnComplete = "gifLoaderAfter"
+                })).SortColumnName("CreateDate").Sortable(true).Named("Дата");
+
+
+            column.For(x => Ajax.ActionLink((x.Header == null) ? "ссылка" : x.Header, "CreateArticle", new { tagId = x.TagID }, new AjaxOptions
+            {
+                UpdateTargetId = "newsDetails",
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "GET",
+                OnBegin = "gifLoaderBefore",
+                OnSuccess = "gifLoaderAfter",
+                OnFailure = "gifLoaderAfter",
+                OnComplete = "gifLoaderAfter"
+            })).SortColumnName("CreateDate").Sortable(true).Named("Заголовок").Attributes(x =>
+            {
+                return new
+                    Dictionary<string, object> { { "style", "word-break: normal; text-align: left;" } };
+            });
+
+            column.For(x => Ajax.ActionLink((x.Header==null) ? "ссылка" : x.Header, "CreateArticle", new { tagId = x.TagID }, new AjaxOptions
+            {
+                UpdateTargetId = "newsDetails",
+                InsertionMode = InsertionMode.Replace,
+                HttpMethod = "GET",
+                OnBegin = "gifLoaderBefore",
+                OnSuccess = "gifLoaderAfter",
+                OnFailure = "gifLoaderAfter",
+                OnComplete = "gifLoaderAfter"
+            })).SortColumnName("CreateDate").Sortable(true).Named("Подзаголовок").Attributes(x =>
+            {
+                return new
+                    Dictionary<string, object> { { "style", "word-break: normal; text-align: left;" } };
+            });
+
+          
+        }).Sort(Model.GridSortOptions).Attributes(@class => "table table-striped table-bordered table-hover table-condensed grid-style").Empty("Нет данных")

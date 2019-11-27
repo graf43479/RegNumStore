@@ -1,0 +1,76 @@
+﻿@using Domain.Entities
+@model IEnumerable<Domain.Entities.Category>
+@{
+    Layout = null;
+}
+
+@functions
+{
+    public string current(string shortName)
+    {
+        if (ViewBag.SelectedCategory==null)
+        {
+            return "";
+        }
+        var s = (IEnumerable<Category>)ViewBag.SelectedCategory;
+        if (s.Any(x => x.ShortName==shortName))
+        {
+            return "checked";
+        }
+        else
+        {
+            return " ";    
+        }
+        
+// return (shortName == ViewBag.SelectedCategory) ? "active" : "";
+    }
+
+}
+        
+@*@foreach(var category in Model)
+       {
+        <li class="@current(category.ShortName)" style="">@Ajax.RouteLink(category.CategoryName.ToUpper(), "Category", new { category = category.ShortName, page = 1 }, 
+                                                                     new AjaxOptions
+                                                                     {
+                                                                         UpdateTargetId = "portf-wrapper",
+                                                                         InsertionMode = InsertionMode.Replace,
+                                                                         HttpMethod = "POST",
+                                                                         OnBegin = "$('#loadingDiv').show();$('#portfolio').hide();",
+                                                                         OnComplete = "$('#loadingDiv').show();$('#portfolio').show();$('a[data-rel^=lightcase]').lightcase({swipe: true,showTitle: false,showCaption: false,showSequenceInfo: false,closeOnOverlayClick: false,transition: 'scrollHorizontal',maxWidth : 1200,maxHeight : 800,});"
+                                                                     }, new {rel="follow, index"})
+        </li>        
+        }*@
+        
+@*<ul>
+@foreach (var category in Model)
+        {
+            <li title="@category.Description"><input type="checkbox" class="checks" id="@category.ShortName"/>@category.CategoryName</li>
+        }
+        </ul>
+        *@   
+        @*@Html.Partial("RegNumPartial")*@
+<ul>
+    @{
+        if ((string) TempData["mobile"] == "mobile")
+        {
+
+            <ul>
+                @foreach (var category in Model)
+                {
+                    <li class="menu-checks" title="@category.Description"><input type="checkbox" class="checks" id="@category.ShortName"/><b>@category.CategoryName</b></li>
+                }
+            </ul>
+        }
+        else
+        {
+            <ul>
+                @foreach (var category in Model)
+                {
+                    <li class="menu-checks" title="@category.Description"><input type="checkbox" class="checks" @current(category.ShortName) id="@category.ShortName" /><b>@category.CategoryName</b></li>
+                }
+            </ul>
+        }
+    }
+
+</ul>
+

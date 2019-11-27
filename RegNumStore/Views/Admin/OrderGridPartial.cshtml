@@ -1,0 +1,101 @@
+﻿@using MvcContrib.UI.Grid
+@model RegnumStore.Models.PagedViewModel<RegNumStore.Models.OrderViewModel>
+           
+           
+     <style type="text/css">
+    .grid-style {
+        margin-left: 10px;
+        margin-right: 0;
+     
+    }
+</style>
+
+<div id="sequence">
+
+
+    @using (Html.BeginForm("DeleteOrder", "Admin", FormMethod.Post))
+{    
+    
+    <div class="col-lg-12" style="padding: 0; margin: 10px 0 10px 0;">
+        <button type="submit" class="btn btn-md btn-danger" style=""><span class="glyphicon glyphicon-remove">&nbsp;</span>Удалить выбранное</button>
+    </div>
+    
+    Html.RenderPartial("Pager", Model.PagedList);
+
+
+    @Html.Grid(Model.PagedList).Columns(column =>
+{
+    if (User.IsInRole("admin") || (User.IsInRole("ContentManager")))
+    {
+        column.Custom(a => Html.Raw("<input type='checkbox' class='reqPayment' name='resubmit' value='" + a.OrderID+ "'/>")).Header(o => "<input type=\"checkbox\" id='chkHeader' />")
+              .Encode(false)
+              .Sortable(false)
+              .HeaderAttributes(new Dictionary<string, object> { { "style", "width:20px" } });
+        }
+
+        column.For(x => x.OrderID).SortColumnName("OrderID").Named("ID").Attributes(x =>
+        {
+            return new Dictionary<string, object> {{"style", "vertical-align: middle"}};
+        });
+
+        column.For(x => x.ProductNumber).SortColumnName("ProductNumber").Named("ProductNumber").Attributes(x =>
+        {
+            return new Dictionary<string, object> {{"style", "vertical-align: middle"}};
+        });
+
+        column.For(x => (x.IsForSale==true) ? "Да" : "Нет").SortColumnName("IsForSale").Named("Продажа?").Attributes(x =>
+        {
+            return new Dictionary<string, object> { { "style", "vertical-align: middle" } };
+        });
+
+        column.For(x => x.StartDate).SortColumnName("StartDate").Named("StartDate").Attributes(x =>
+        {
+            return new Dictionary<string, object> {{"style", "vertical-align: middle"}};
+        });
+
+        column.For(x => x.Email).SortColumnName("Email").Named("Email").Attributes(x =>
+        {
+            return new Dictionary<string, object> {{"style", "vertical-align: middle"}};
+        });
+
+
+        column.For(x => x.Phone).SortColumnName("Phone").Named("Phone").Attributes(x =>
+        {
+            return new Dictionary<string, object> {{"style", "vertical-align: middle"}};
+
+        });
+
+        column.For(x => x.Name).SortColumnName("Name").Named("Name").Attributes(x =>
+        {
+            return new Dictionary<string, object> {{"style", "vertical-align: middle"}};
+
+
+        });
+
+        column.For(x => x.Comment).SortColumnName("Comment").Named("Comment").Attributes(x =>
+        {
+            return new Dictionary<string, object> {{"style", "vertical-align: middle"}};
+
+
+        });
+
+        column.Custom(x => Html.Raw("<a href = " + Url.Action("EditOrder", "Admin", new { orderId = x.OrderID }) + " title='Редактировать'><i class='fa fa-pencil-square-o fa-2x'></i></a>")).Header(o => "<span class='glyphicon glyphicon-edit'> </span>").Encode(false)
+                                            .Sortable(false);
+
+
+
+    }).Sort(Model.GridSortOptions).Attributes(@class => "table table-striped table-bordered table-hover table-condensed grid-style", @style => "margin-left:0;").Empty("Нет данных")
+
+ Html.RenderPartial("Pager", Model.PagedList);    
+    
+    <div class="col-lg-12" style="padding: 0; margin: 10px 0 10px 0;">
+                    <button type="submit" class="btn btn-md btn-danger" style=""><span class="glyphicon glyphicon-remove">&nbsp;</span>Удалить выбранное</button>
+    </div>
+    
+             
+
+     
+     
+}
+</div>
+
